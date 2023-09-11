@@ -1,0 +1,32 @@
+---
+  - name: Install PostgreSQL
+    hosts: all
+    become: True
+    roles:
+      - pg_install
+    
+  - name: Master server configuration
+    hosts: master
+    become: True
+    roles:
+      - master_config
+
+  - name: Replica server configuration
+    hosts: replica
+    become: True
+    roles:
+      - slave_config
+  
+  - name: Barman Install
+    hosts: backup
+    become: True
+    roles:
+      - barman_install
+
+  - name: Barman config
+    hosts: backup
+    become: True
+    roles:
+       - backup_config
+    tags: config
+...
